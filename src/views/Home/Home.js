@@ -16,8 +16,6 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
@@ -25,10 +23,8 @@ import {Avatar } from '@material-ui/core';
 import TrapFocus from '@mui/base/TrapFocus';
 import {nanoid} from  'nanoid';
 import EditData from './EditData';
-import AlertEdit from './AlertEdit';
 import AddData from './AddData';
 import Deroul from './Deroul';
-import Header from  './Header/Header';
 import {useHistory} from 'react-router-dom';
 import DownloadIcon from '@mui/icons-material/Download'
 import jsPDF from "jspdf";
@@ -36,90 +32,17 @@ import "jspdf-autotable";
 import './style.css';
 
  const App =()=>{
-   const data = [
-     {
-        'id':1,
-        'firstnames':'tiojio junior romain',
-        'date':  '12 Mai 2021',
-        'identifiant':'#123456789',
-        'classroom':'SIL',
-        'place': 'Douala',
-        'email':  'appfabrik@gmail.com',
-        'address':  'bp96yde',
-        'lastname': 'test' ,
-        'parentname':'jean claude',
-        'phone':'233666545',
-        'fathername':'mere claude',
-        'mothername':'jeannette lui',
-        'phonefather':'566998845',
-        'phonemother':'366544',
-        'profile':null,
-        'matricule':2222023,
-        'create':'Administrator',
-        'modify':'Administrator',
-
-     },
-     {
-      'id':2,
-      'firstnames':'karl junior jean',
-      'date':  '12 Mai 2021',
-      'identifiant':'#665514125',
-      'classroom':'CEP',
-      'place': 'Douala',
-      'email':  'appfabrik@gmail.com',
-      'address':  'bp96yde',
-      'lastname': 'test' ,
-      'parentname':'jean claude',
-      'phone':'233666545',
-      'fathername':'mere claude',
-      'mothername':'jeannette lui',
-      'phonefather':'566998845',
-      'phonemother':'366544',
-      'profile':null,
-      'matricule':2222023,
-      'create':'Administrator',
-      'modify':'Administrator',
-
-     },
-     {
-      'id':3,
-      'firstnames':'brenda lui jean',
-      'date':  '12 Mai 2021',
-      'identifiant':'#558874456',
-      'classroom':'CM2',
-      'place': 'Douala',
-      'email':  'appfabrik@gmail.com',
-      'address':  'bp96yde',
-      'lastname': 'test' ,
-      'parentname':'jean claude',
-      'phone':'233666545',
-      'fathername':'mere claude',
-      'mothername':'jeannette lui',
-      'phonefather':'566998845',
-      'phonemother':'366544',
-      'profile':null,
-      'matricule':2222023,
-      'create':'Administrator',
-      'modify':'Administrator',
-     },
-    
-   ];
-
+ 
+   // get data in LocalStorage
    useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('crudData')) || [];
     setContacts(storedData);
   }, []);
 
-  const refreshData = () =>{
-    useEffect(() => {
-      const storedData = JSON.parse(localStorage.getItem('crudData')) || [];
-      setContacts(storedData);
-    }, []);
-  
-  }
+ 
 
 
-   const [contacts , setContacts] = useState(data);
+   const [contacts , setContacts] = useState([]);
    const [addFormData , setAddFormData] = useState({
      firstnames: '' ,
     date:  '',
@@ -164,6 +87,7 @@ import './style.css';
     modify:'Administrator',
 
    });
+
    // Export data to PDF
 
   const exportPDF = () => {
@@ -247,6 +171,16 @@ import './style.css';
             matricule: editFormData.matricule,
             classroom: editFormData.classroom,
             profile: editFormData.profile,
+            place:editFormData.place,
+            email: editFormData.email,
+           address: editFormData.address,
+           lastname:editFormData.lastname,
+           parentname:editFormData.parentname,
+            phone:editFormData.phone,
+           fathername:editFormData.fathername,
+           mothername:editFormData.mothername,
+           phonefather:editFormData.phonefather,
+           phonemother:editFormData.phonemother,
             create:'Administrator',
             modify:'Administrator',
         }
@@ -259,9 +193,10 @@ import './style.css';
          setEditContactId(null);
          setEdit(false);
          setView(true)
+
+         //save data updated in to localStorage
          localStorage.setItem('crudData', JSON.stringify(newContacts));
-         refreshData();
-         //history.push('students/Header/Header/#aff');
+         
     }
 
    // onchange data
@@ -287,7 +222,7 @@ import './style.css';
 
 // submit new data
    
-   const handleAddFormSubmit = (event) => {
+const handleAddFormSubmit = (event) => {
     event.preventDefault();
 
     const newContact={
@@ -313,17 +248,12 @@ import './style.css';
       modify:'Administrator',
       
     };
-
-
     const newContacts = [...contacts, newContact];
     setContacts(newContacts);
-    
-    //history.push('students/Header/Header/#aff');
-    setOpen(false);
+     setOpen(false);
     setView(true);
-    
+     //save new data in to localStorage
     localStorage.setItem('crudData', JSON.stringify(newContacts));
-    refreshData();
 
    }
 
@@ -343,11 +273,10 @@ import './style.css';
       setEditContactId(null);
       setEdit(false);
       setView(true);
-      history.push('students/Header/Header/#aff');
+    
    }
 
    //delete date
-
    const handleDeleteClik = (contactId) => {
       const newContacts = [...contacts];
       const index = contacts.findIndex((contact)=> contact.id ===contactId);
@@ -355,7 +284,6 @@ import './style.css';
        newContacts.splice(index,1);
        setContacts(newContacts);
        localStorage.setItem('crudData', JSON.stringify(newContacts));
-       refreshData();
    }
 
    // transition
@@ -366,12 +294,14 @@ import './style.css';
 
    const history=useHistory(); 
    const handleOpen = (event) => {
-    
       setOpen(true);
       setView(false);
-      history.push('students/AddData/#NewStudents');
-
    };
+
+   const handleCloseAdd = (event) => {
+    setOpen(false);
+    setView(true);
+ };
  
    const handleClose = (event) => {
      setOpen(false);
@@ -426,10 +356,10 @@ import './style.css';
      id: 'ID',
      numeric: true,
      disablePadding: false,
-     label: 'ID',
+     label: 'Phone',
    },
    {
-     id: 'Classroom',
+     id: 'Place',
      numeric: true,
      disablePadding: false,
      label: 'Classroom',
@@ -438,7 +368,7 @@ import './style.css';
      id: 'Matricule',
      numeric: true,
      disablePadding: false,
-     label: 'Matricule',
+     label: 'Email',
    },
    {
      id: 'Created',
@@ -638,190 +568,173 @@ import './style.css';
    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - contacts.length) : 0;
 
      return(
-
       <Box>
+       {open && (
+            <TrapFocus open>
+              <Box tabIndex={-1}  style={{ width:'80%' , margin:'auto' }} >
+                
+                <AddData  
+                addFormData={addFormData}
+                onImageChange={onImageChange}
+                  handleAddFormChange={handleAddFormChange}
+                  handleAddFormSubmit={handleAddFormSubmit}
+                  handleCloseAdd={handleCloseAdd}
+                />
+                <br />
+              </Box>
+            </TrapFocus>
+        )}
 
+        {edit && (
+              <TrapFocus edit>
+                <Box tabIndex={-1}  style={{ width:'80%' , margin:'auto' }} >
 
-      {open && (
-        <TrapFocus open>
-          <Box tabIndex={-1}  style={{ width:'80%' , margin:'auto' }} >
-             
-          <br></br><br></br>
-          <br></br>
+                  <EditData  
+                    editFormData ={editFormData}
+                    handleEditFormChange={handleEditFormChange}
+                    handleCancelClik={handleCancelClik}
+                    handleEditFormSubmit={handleEditFormSubmit}
+                    addFormData={addFormData}
+                  onImageChange={onImageChange}
+                    handleAddFormChange={handleAddFormChange}
+                    handleAddFormSubmit={handleAddFormSubmit}
+                  />
+                  <br />
+                </Box>
+              </TrapFocus>
+          )}
 
-      
-            <AddData  
-            addFormData={addFormData}
-            onImageChange={onImageChange}
-              handleAddFormChange={handleAddFormChange}
-              handleAddFormSubmit={handleAddFormSubmit}
-             />
-            <br />
-          </Box>
-        </TrapFocus>
-      )}
-
-{edit && (
-        <TrapFocus edit>
-          <Box tabIndex={-1}  style={{ width:'80%' , margin:'auto' }} >
-             
-          <br></br><br></br>
-          <br></br>
-
-      
-            <EditData  
-               editFormData ={editFormData}
-               handleEditFormChange={handleEditFormChange}
-               handleCancelClik={handleCancelClik}
-               handleEditFormSubmit={handleEditFormSubmit}
-               addFormData={addFormData}
-             onImageChange={onImageChange}
-              handleAddFormChange={handleAddFormChange}
-              handleAddFormSubmit={handleAddFormSubmit}
-             />
-            <br />
-          </Box>
-        </TrapFocus>
-      )}
-
-    {view && (
+          {view && (
          
-        <TrapFocus  view>
-          <Box tabIndex={-1} style={{ width:'80%' , margin:'auto'}} >
- 
-          
-         <br></br>
-       <Box sx={{ width: '100%' }}> 
-           
-       <br></br>
-          <span  onClick={ handleOpen }  className='back'> 
-              &nbsp;<Typography className='new'>+ New student </Typography>
-          </span>      
-          <br></br><br></br><br></br><br></br>
+              <TrapFocus  view>
+                <Box tabIndex={-1} style={{ width:'80%' , margin:'auto'}} >
+                  <Box sx={{ width: '100%' }}> 
+                
+                    <br></br>
+                    <span  onClick={ handleOpen }  className='back'> 
+                        &nbsp;<Typography className='new'>+ New student </Typography>
+                    </span>      
+                    <br></br><br></br><br></br><br></br>
 
-         <Paper sx={{ width: '100%', mb: 2 }}>
-           <EnhancedTableToolbar numSelected={selected.length} />
-             <TableContainer sx={{ width: 'auto' }}>
-        
-           <Table   aria-labelledby="tableTitle" size={dense ? 'small' : 'medium'} > 
-           <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={contacts.length}
-            />
-                   <TableBody>
-                   {stableSort(contacts, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((contact, index) => {
-                  const isItemSelected = isSelected(contact.firstnames);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-                      return(
-                        <Fragment>
-                             { editContactId === contact.id ? (
-                                  <EditData 
-                                  editFormData ={editFormData}
-                                  addFormData={addFormData}
-                                  handleEditFormChange={handleEditFormChange}
-                                  handleCancelClik={handleCancelClik}
-                                  handleEditFormSubmit={handleEditFormSubmit}
-                              />  
-                                
-                             ):(
-                              
-                              <TableRow
-                              hover
-                              onClick={(event) => handleClick(event, contact.firstnames)}
-                              role="checkbox"
-                              aria-checked={isItemSelected}
-                              tabIndex={-1}
-                              key={contact.firstnames}
-                              selected={isItemSelected}
+                    <Paper sx={{ width: '100%', mb: 2 }}>
+                      <EnhancedTableToolbar numSelected={selected.length} />
+                        <TableContainer sx={{ width: 'auto' }}>
+                    
+                      <Table   aria-labelledby="tableTitle" size={dense ? 'small' : 'medium'} > 
+                      <EnhancedTableHead
+                          numSelected={selected.length}
+                          order={order}
+                          orderBy={orderBy}
+                          onSelectAllClick={handleSelectAllClick}
+                          onRequestSort={handleRequestSort}
+                          rowCount={contacts.length}
+                        />
+                              <TableBody>
+                              {stableSort(contacts, getComparator(order, orderBy))
+                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            .map((contact, index) => {
+                              const isItemSelected = isSelected(contact.firstnames);
+                              const labelId = `enhanced-table-checkbox-${index}`;
+                                  return(
+                                    <Fragment>
+                                        { editContactId === contact.id ? (
+                                              <EditData 
+                                              editFormData ={editFormData}
+                                              addFormData={addFormData}
+                                              handleEditFormChange={handleEditFormChange}
+                                              handleCancelClik={handleCancelClik}
+                                              handleEditFormSubmit={handleEditFormSubmit}
+                                          />  
+                                            
+                                        ):(
+                                          
+                                          <TableRow
+                                          hover
+                                          onClick={(event) => handleClick(event, contact.firstnames)}
+                                          role="checkbox"
+                                          aria-checked={isItemSelected}
+                                          tabIndex={-1}
+                                          key={contact.firstnames}
+                                          selected={isItemSelected}
+                                        >
+                                          <TableCell padding="checkbox">
+                                            <Checkbox
+                                              color="success"
+                                              checked={isItemSelected}
+                                              inputProps={{
+                                                'aria-labelledby': labelId,
+                                              }}
+                                            />
+                                          </TableCell>
+                                      
+                                          <TableCell
+                                            style={{width:'auto',textAlign:"center",display:'flex',padding:'15px 0px 20px 10px'}}
+                                            component="th"
+                                            id={labelId}
+                                            scope="contact"
+                                            padding="none"
+                                          >
+                                            <Avatar>  <img style={{width:'100px'}} src={contact.profile}  /> </Avatar> 
+                                            <p  style={{fontWeight:"bold",padding:'13px 0px 0px 15px'}}>{contact.firstnames}</p>
+                                          </TableCell>
+                                          <TableCell  align="left" style={{width:'0px'}}>
+                                                <p style={{fontWeight:"bold",color:'#003366',padding:'0px 0px 0px -10px'}}>{contact.phone}</p> 
+                                          </TableCell>
+                                          <TableCell style={{width:'100px',padding:'15px 0px 0px 80px'}}>
+                                            <p style={{height:'30px',padding:'5px 0px 0px 0px',textAlign:"center",width:'55px',borderRadius:'20px',backgroundColor:'#003366',color:'white'}}> {contact.place} </p>
+                                          </TableCell>
+                                          <TableCell style={{width:'100px',padding:'0px 0px 0px 100px'}}>{contact.email}</TableCell>
+                                          <TableCell style={{width:'200px',padding:'0px 0px 0px 150px'}}>{contact.create}</TableCell>
+                                          <TableCell style={{width:'200px',padding:'0px 0px 0px 100px'}}>{contact.modify}</TableCell>
+                                          <TableCell align="right">
+                                          <Deroul
+                                              contact={contact}
+                                              handleEditClick={handleEditClick}
+                                              handleDeleteClik={handleDeleteClik}
+                                              handleEditFormSubmit={handleEditFormSubmit}
+                                              editFormData ={editFormData}
+                                              handleEditFormChange={handleEditFormChange}
+                                              handleCancelClik={handleCancelClik}
+                                           />
+                                          </TableCell>
+                                        </TableRow>
+                                        ) 
+                                      }
+                                                        
+                                    </Fragment>
+                                    )
+                                }
+                                )
+                              }
+
+                        {emptyRows > 0 && (
+                            <TableRow
+                              style={{
+                                height: (dense ? 33 : 53) * emptyRows,
+                              }}
                             >
-                              <TableCell padding="checkbox">
-                                <Checkbox
-                                  color="success"
-                                  checked={isItemSelected}
-                                  inputProps={{
-                                    'aria-labelledby': labelId,
-                                  }}
-                                />
-                              </TableCell>
-                           
-                              <TableCell
-                                 style={{width:'auto',textAlign:"center",display:'flex',padding:'15px 0px 20px 10px'}}
-                                component="th"
-                                id={labelId}
-                                scope="contact"
-                                padding="none"
-                              >
-                                 <Avatar>  <img style={{width:'100px'}} src={contact.profile}  /> </Avatar> 
-                                <p  style={{fontWeight:"bold",padding:'13px 0px 0px 15px'}}>{contact.firstnames}</p>
-                              </TableCell>
-                              <TableCell  align="left" style={{width:'0px'}}>
-                                    <p style={{fontWeight:"bold",color:'#003366',padding:'0px 0px 0px -10px'}}>{contact.identifiant}</p> 
-                              </TableCell>
-                              <TableCell style={{width:'100px',padding:'15px 0px 0px 80px'}}>
-                                 <p style={{height:'30px',padding:'5px 0px 0px 0px',textAlign:"center",width:'55px',borderRadius:'20px',backgroundColor:'#003366',color:'white'}}> {contact.classroom} </p>
-                              </TableCell>
-                              <TableCell style={{width:'100px',padding:'0px 0px 0px 100px'}}>{contact.matricule}</TableCell>
-                              <TableCell style={{width:'200px',padding:'0px 0px 0px 150px'}}>{contact.create}</TableCell>
-                              <TableCell style={{width:'200px',padding:'0px 0px 0px 100px'}}>{contact.modify}</TableCell>
-                              <TableCell align="right">
-                              <Deroul
-                       contact={contact}
-                       handleEditClick={handleEditClick}
-                       handleDeleteClik={handleDeleteClik}
-                       handleEditFormSubmit={handleEditFormSubmit}
-                       editFormData ={editFormData}
-                       handleEditFormChange={handleEditFormChange}
-                       handleCancelClik={handleCancelClik}
-                    />
-                              </TableCell>
+                              <TableCell colSpan={6} />
                             </TableRow>
-                             ) 
-                           }
-                                             
-                        </Fragment>
-                        )
-                    }
-                    )
-                  }
-
-             {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-                    </TableBody>
-                   </Table>  
-      
-            </TableContainer>
-            <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={contacts.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-            </Paper>
-     </Box>
+                          )}
+                                </TableBody>
+                              </Table>  
+                  
+                        </TableContainer>
+                        <TablePagination
+                            rowsPerPageOptions={[5, 10, 25]}
+                            component="div"
+                            count={contacts.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                         />
+                    </Paper>
+               </Box>
           </Box>
         </TrapFocus>
       )}
-
-
     </Box>
-
-
      )
 }
 

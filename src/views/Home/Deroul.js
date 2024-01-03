@@ -7,12 +7,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import {Avatar} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import AlertDelete from './AlertDelete';
-import AlertEdit from './AlertEdit';
+
 
 const StyledMenu = withStyles({
   paper: {

@@ -34,7 +34,7 @@ const Footer = () => {
   const classes = useStyles();
 
   return (
-    <Paper className={classes.root} square>
+    <Paper className={classes.root} id='head' square>
       <Grid  style={{display:'flex',flexWrap:'wrap',justifyContent:'space-around',height:'100%'}}>
 
         <Grid item xs={12} sm={6} md={3}>

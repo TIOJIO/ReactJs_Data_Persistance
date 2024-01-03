@@ -6,11 +6,9 @@ import './style.css';
 
 const AddData = ({handleAddFormChange,addFormData,handleAddFormSubmit,onImageChange,editFormData ,handleEditFormChange ,handleCancelClik,handleEditFormSubmit}) => {
   return (
-    <div style={{marginTop:'-180px'}} id='NewStudents'>
+    <div style={{marginTop:'50px'}} id='NewStudents'>
     <div>
-    <Typography style={{color:'transparent'}}> P</Typography>
-    <Typography style={{color:'transparent'}}> P</Typography>
-        <h1 style={{color:'white'}}>.</h1> <br></br><br></br>
+       <h1 >Update Student</h1> 
      <div className='root'>
         <div className='main'>
              <div className='texte'>Students Details</div>

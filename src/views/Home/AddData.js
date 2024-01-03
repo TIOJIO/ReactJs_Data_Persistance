@@ -3,7 +3,7 @@ import {Typography,TextField, Box,Button,Paper} from '@material-ui/core';
 import './style.css';
 
 
-const AddData = ({handleAddFormChange,addFormData,handleAddFormSubmit,onImageChange}) => {
+const AddData = ({handleCloseAdd,handleAddFormChange,addFormData,handleAddFormSubmit,onImageChange}) => {
   return (
     <div style={{marginTop:'0px'}} id='NewStudents'>
     <div>
@@ -93,19 +93,12 @@ const AddData = ({handleAddFormChange,addFormData,handleAddFormSubmit,onImageCha
                id="phone"  variant="outlined"
                style={{  width: '100%'}}  
                type="text"   placeholder='+1234567890'
-              />
-
-       
-            
-          </div>
-
-         
+              /> 
+          </div>  
     </div>   
-
         <br></br><br></br>
 </Paper>
 </div>
-
 <br></br><br></br>
 
 
@@ -157,14 +150,24 @@ const AddData = ({handleAddFormChange,addFormData,handleAddFormSubmit,onImageCha
               />
               
               <Button
-              style={{ backgroundColor:'rgb(17, 141, 65)',width:'100px',color:'white'}}
+              style={{ backgroundColor:'#003366',width:'100px',color:'white'}}
               type='submit' 
                onClick={() =>handleAddFormSubmit(event) }
               > 
                   SAVE
+              </Button>
+                
+
+                &nbsp; &nbsp;
+               <Button
+              style={{ backgroundColor:'#003366',width:'100px',color:'white'}}
+              type='submit' 
+               onClick={() =>handleCloseAdd(event) }
+              > 
+                  CANCEL
               </Button> 
           
-          </div>
+          </div> 
 
          < div style={{width:'100px',textAlign:"center"}}>
          </div>
