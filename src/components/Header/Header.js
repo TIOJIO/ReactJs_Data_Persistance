@@ -35,7 +35,7 @@ const Footer = () => {
 
   return (
     <Paper className={classes.root} square>
-      <Grid  style={{display:'flex',justifyContent:'space-around',height:'100%'}}>
+      <Grid  style={{display:'flex',flexWrap:'wrap',justifyContent:'space-around',height:'100%'}}>
 
         <Grid item xs={12} sm={6} md={3}>
           <img  src={profil} alt="Logo" className={classes.logo} />
@@ -47,11 +47,7 @@ const Footer = () => {
 
         <Grid item xs={12} sm={6} md={3}>
         <div className={classes.socialIcons}>
-             <GitHubIcon style={{color:'#003366',fontSize:'40px' }} />
-             <WhatsAppIcon style={{color:'#003366',fontSize:'40px' }} />
-             <LinkedInIcon style={{color:'#003366',fontSize:'40px' }} />
-             <FacebookInIcon style={{color:'#003366',fontSize:'40px' }} />
-             
+              <h4 style={{color:'#003366'}}>CRUD Data Persistence with React Js</h4>
           </div>
           
         </Grid>

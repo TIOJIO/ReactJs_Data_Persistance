@@ -36,30 +36,17 @@ const Footer = () => {
       <Grid container spacing={3}>
         {/* Premier bloc avec le logo et du texte */}
         <Grid item xs={12} sm={6} md={3}>
-          <img  alt="Logo" className={classes.logo} />
-          <p> Le train du developpement et de l'innovation technologique a votre porter. pour vos projet. </p>
-         
-          <br/>
-          <h3>Our Social Media</h3>
-          <div className={classes.socialIcons}>
-             <GitHubIcon style={{color:'white',fontSize:'40px' }} />
-             <WhatsAppIcon style={{color:'white',fontSize:'40px' }} />
-             <LinkedInIcon style={{color:'white',fontSize:'40px' }} />
-             <FacebookInIcon style={{color:'white',fontSize:'40px' }} />
-             
-          </div>
+        <h4 style={{color:'white'}}>CRUD Data Persistence with React Js</h4>
         </Grid>
 
         {/* Deuxième bloc avec titre, texte et lien */}
         <Grid item xs={12} sm={6} md={3}>
-          <Typography variant="h6">Our developpemnt Technology</Typography>
+          <h5>Our developpemnt Technology & Library</h5>
  
             <br />
-            <p> Web Design</p>
-            <p> UX Design</p>
-            <p> Mobile Ux</p>
-            <p> Web developpement</p>
-            <p> Mobile developpement</p>
+            <p> React Js</p>
+            <p> @material-ui/icons</p>
+            <p> @material-ui/core</p>
 
         </Grid>
 
@@ -67,24 +54,21 @@ const Footer = () => {
         <Grid item xs={12} sm={6} md={3}>
             <br />
             <br />
-            <p> Web Design</p>
-            <p> Python & Django</p>
-            <p> NodeJs</p>
-            <p> Express</p>
-            <p> WordPress</p>
+            <p> UseState</p>
+            <p> UseEffet</p>
+            <p> localStorage</p>
+            <p> Fragment</p>
         </Grid>
 
         {/* Quatrième bloc avec formulaire et icônes sociales */}
         <Grid item xs={12} sm={6} md={3}>
-          <Typography variant="h6">Contactez-nous</Typography>
-          <form>
-            <TextField  style={{backgroundColor:'white',borderRadius:'10px',marginTop:'10px'}}label="Email" fullWidth />
-            <TextField style={{backgroundColor:'white',borderRadius:'10px',marginTop:'10px'}} label="Message" multiline rows={4} fullWidth />
-            <Button style={{marginTop:'10px'}} variant="contained" color="white" fullWidth>
-              Envoyer
-            </Button>
-          </form>
-          
+          <Typography variant="h6">Join Me </Typography>
+          <div className={classes.socialIcons}>
+             <a href='https://github.com/TIOJIO'><GitHubIcon style={{color:'white',fontSize:'40px' }} /></a>
+              <a href='https://www.linkedin.com/in/TIOJIO/'><LinkedInIcon style={{color:'white',fontSize:'40px' }} /></a>
+             <FacebookInIcon style={{color:'white',fontSize:'40px' }} />
+             
+          </div>
         </Grid>
       </Grid>
       

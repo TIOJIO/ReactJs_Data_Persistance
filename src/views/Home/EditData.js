@@ -10,7 +10,7 @@ const AddData = ({handleAddFormChange,addFormData,handleAddFormSubmit,onImageCha
     <div>
     <Typography style={{color:'transparent'}}> P</Typography>
     <Typography style={{color:'transparent'}}> P</Typography>
-        <h1 > Update Students</h1> <br></br>
+        <h1 style={{color:'white'}}>.</h1> <br></br><br></br>
      <div className='root'>
         <div className='main'>
              <div className='texte'>Students Details</div>
@@ -170,7 +170,7 @@ const AddData = ({handleAddFormChange,addFormData,handleAddFormSubmit,onImageCha
               />
               
               <Button
-              style={{ backgroundColor:'rgb(17, 141, 65)',width:'100px',color:'white'}}
+              style={{ backgroundColor:'#003366',width:'100px',color:'white'}}
               type='submit' 
                onClick={() =>handleEditFormSubmit(event) }
               > 
@@ -178,7 +178,7 @@ const AddData = ({handleAddFormChange,addFormData,handleAddFormSubmit,onImageCha
               </Button> 
                    &nbsp;&nbsp;&nbsp;
               <Button
-              style={{ backgroundColor:'rgb(17, 141, 65)',width:'100px',color:'white'}}
+              style={{ backgroundColor:'#003366',width:'100px',color:'white'}}
               type='submit' 
                onClick={() =>handleCancelClik(event) }
               > 

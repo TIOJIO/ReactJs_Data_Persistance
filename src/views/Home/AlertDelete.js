@@ -13,14 +13,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide({contact,handleDeleteClik}) {
+export default function AlertDialogSlide({contact,handleClose,handleDeleteClik}) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleCloses = () => {
     setOpen(false);
   };
 
@@ -33,7 +33,7 @@ export default function AlertDialogSlide({contact,handleDeleteClik}) {
         open={open}
         TransitionComponent={Transition}
         keepMounted
-        onClose={handleClose}
+        onClose={handleCloses}
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle> Supprimer {contact.name}</DialogTitle>
@@ -45,8 +45,8 @@ export default function AlertDialogSlide({contact,handleDeleteClik}) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={() =>handleDeleteClik( contact.id) &&  setOpen(false) }>Delete</Button>
+          <Button onClick={handleCloses}>Cancel</Button>
+          <Button onClick={() =>handleDeleteClik( contact.id) &&  setOpen(false) && handleClose() }>Delete</Button>
         </DialogActions>
       </Dialog>
     </div>

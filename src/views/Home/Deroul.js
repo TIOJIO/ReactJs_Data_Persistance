@@ -37,7 +37,7 @@ const StyledMenu = withStyles({
 const StyledMenuItem = withStyles((theme) => ({
   root: {
     '&:hover': {
-      backgroundColor: "rgb(17, 141, 65)",
+      backgroundColor: "#003366",
       '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
         color: theme.palette.common.white,
       },
@@ -63,7 +63,7 @@ export default function CustomizedMenus({contact,handleDeleteClik,handleEditClic
        aria-controls="customized-menu"
        aria-haspopup="true"
        variant="contained"
-       sx={{backgroundColor:'rgb(17, 141, 65)'}}
+       sx={{backgroundColor:'#003366'}}
        onClick={handleClick}
       >
         <MoreVertIcon />
@@ -86,7 +86,7 @@ export default function CustomizedMenus({contact,handleDeleteClik,handleEditClic
           <ListItemIcon>
             <DeleteIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText> <AlertDelete contact={contact} handleDeleteClik={handleDeleteClik}/>  </ListItemText >
+          <ListItemText onClick={() =>handleDeleteClik( contact.id)}> Delete  </ListItemText >
         </StyledMenuItem>
       </StyledMenu>
     </div>

@@ -1,4 +1,4 @@
-import React , {useState, Fragment} from 'react';
+import React , {useState,useEffect, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -104,6 +104,20 @@ import './style.css';
      },
     
    ];
+
+   useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem('crudData')) || [];
+    setContacts(storedData);
+  }, []);
+
+  const refreshData = () =>{
+    useEffect(() => {
+      const storedData = JSON.parse(localStorage.getItem('crudData')) || [];
+      setContacts(storedData);
+    }, []);
+  
+  }
+
 
    const [contacts , setContacts] = useState(data);
    const [addFormData , setAddFormData] = useState({
@@ -245,7 +259,9 @@ import './style.css';
          setEditContactId(null);
          setEdit(false);
          setView(true)
-         history.push('students/Header/Header/#aff');
+         localStorage.setItem('crudData', JSON.stringify(newContacts));
+         refreshData();
+         //history.push('students/Header/Header/#aff');
     }
 
    // onchange data
@@ -302,12 +318,12 @@ import './style.css';
     const newContacts = [...contacts, newContact];
     setContacts(newContacts);
     
-    history.push('students/Header/Header/#aff');
+    //history.push('students/Header/Header/#aff');
     setOpen(false);
     setView(true);
     
-    console.log(newContacts);
-    
+    localStorage.setItem('crudData', JSON.stringify(newContacts));
+    refreshData();
 
    }
 
@@ -338,6 +354,8 @@ import './style.css';
      
        newContacts.splice(index,1);
        setContacts(newContacts);
+       localStorage.setItem('crudData', JSON.stringify(newContacts));
+       refreshData();
    }
 
    // transition
@@ -743,10 +761,10 @@ import './style.css';
                                 <p  style={{fontWeight:"bold",padding:'13px 0px 0px 15px'}}>{contact.firstnames}</p>
                               </TableCell>
                               <TableCell  align="left" style={{width:'0px'}}>
-                                    <p style={{fontWeight:"bold",color:'rgb(17, 141, 65)',padding:'0px 0px 0px -10px'}}>{contact.identifiant}</p> 
+                                    <p style={{fontWeight:"bold",color:'#003366',padding:'0px 0px 0px -10px'}}>{contact.identifiant}</p> 
                               </TableCell>
                               <TableCell style={{width:'100px',padding:'15px 0px 0px 80px'}}>
-                                 <p style={{height:'30px',padding:'5px 0px 0px 0px',textAlign:"center",width:'55px',borderRadius:'20px',backgroundColor:'rgb(17, 141, 65)',color:'white'}}> {contact.classroom} </p>
+                                 <p style={{height:'30px',padding:'5px 0px 0px 0px',textAlign:"center",width:'55px',borderRadius:'20px',backgroundColor:'#003366',color:'white'}}> {contact.classroom} </p>
                               </TableCell>
                               <TableCell style={{width:'100px',padding:'0px 0px 0px 100px'}}>{contact.matricule}</TableCell>
                               <TableCell style={{width:'200px',padding:'0px 0px 0px 150px'}}>{contact.create}</TableCell>
